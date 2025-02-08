@@ -1,0 +1,13 @@
+# 10. Summary Statistics and Data Transformation
+library(tidyr)
+library(dplyr)
+summary_stats <- summary(airquality)
+melted_airquality <- airquality %>% pivot_longer(cols = -c(Month, Day), names_to = "variable", values_to = "value")
+melted_airquality_id <- airquality %>% pivot_longer(cols = -c(Month, Day), names_to = "variable", values_to = "value")
+cast_month_date <- melted_airquality_id %>% group_by(Month, Day, variable) %>% summarise(mean_value = mean(value, na.rm = TRUE))
+cast_avg_month <- melted_airquality %>% group_by(Month, variable) %>% summarise(mean_value = mean(value, na.rm = TRUE))
+print(summary_stats)
+print(melted_airquality)
+print(melted_airquality_id)
+print(cast_month_date)
+print(cast_avg_month)
